@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { CssSelector } from '@angular/compiler';
 import { GlobalDataSummary } from 'src/app/models/global-data';
-import { GoogleChartInterface } from 'ng2-google-charts';
 
 @Component({
   selector: 'app-home',
@@ -16,49 +15,67 @@ export class HomeComponent implements OnInit {
   totalActive = 0;
   totalDeaths = 0;
   totalRecovered = 0;
+  loading = true;
   globalData: GlobalDataSummary[];
-  pieChart: GoogleChartInterface = {
-    chartType: 'PieChart'
+  dataTable = []
+  
+  chart = {
+    PieChart: "PieChart",
+    ColumnChart: "ColumnChart",
+    height: 500,
+    options: {
+      animation: {
+        duration:1000,
+        easing: 'out',
+      }
+    }
+    
   }
-  columnChart: GoogleChartInterface = {
-    chartType: 'ColumnChart'
-  }
+ 
   constructor(private dataService: DataServiceService) { }
 
 
-  initChart() {
+  updateChart(input: HTMLInputElement) {
+    
+    this.initChart(input.value)
+  }
 
-    let dataTable = []
-    dataTable.push(["Country","Cases"])
+  initChart(caseType: string) {
+
+   
+    this.dataTable = []
+    //this.dataTable.push(["Country","Cases"])
+    
     this.globalData.forEach(cs=>{
 
-      if(cs.confirmed >= 25000) {
-        dataTable.push([
-          cs.country,
-          cs.confirmed
-        ])
-      }
+      let value: number;
+      
+      if(caseType == 'c')
+        if(cs.confirmed >= 2000)
+          value = cs.confirmed
+      
+      if(caseType == 'd')
+          if(cs.deaths >= 2000)
+            value = cs.deaths
+            
+      if(caseType == 'r')
+            if(cs.recovered >= 2000)
+              value = cs.recovered
+              
+      if(caseType == 'a')
+              if(cs.active >= 2000)
+                value = cs.active
+
+      this.dataTable.push([
+        cs.country,
+        value
+      ])  
+      
+      console.log(this.dataTable);
+      
     })
 
-    this.pieChart = {
-      chartType: 'PieChart',
-      dataTable: dataTable,
-      //firstRowIsData: true,
-      options: {
-        //'Country': 'Cases'
-        height: 500
-      },
-    };
-
-    this.columnChart = {
-      chartType: 'ColumnChart',
-      dataTable: dataTable,
-      //firstRowIsData: true,
-      options: {
-        //'Country': 'Cases'
-        height: 500
-      },
-    };
+    
   }
   ngOnInit(): void {
     this.dataService.getGlobalData().subscribe(
@@ -75,7 +92,10 @@ export class HomeComponent implements OnInit {
             }
           })
 
-          this.initChart()
+          this.initChart('c')
+        },
+        complete: () => {
+          this.loading = false; 
         }
       }
     )

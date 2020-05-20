@@ -1,3 +1,7 @@
+<div class="ui  dimmer" [class.active]='loading'>
+    <div class="ui text loader">Loading</div>
+</div>
+
 <div class="jumbotron bg-white text-center">
     <h1 class="display-4">COVID-19 Tracker Country Wise</h1>
     <hr>
@@ -14,4 +18,34 @@
     [totalRecovered]='totalRecovered'
     [totalDeaths]='totalDeaths'
     [totalActive]='totalActive'></app-dashboard-card>
+
+
+    <div class="row">
+        <div class="col">
+
+            <google-chart [type]="type" [options]='chart.options' style="width: 100%;"
+       [height] = 'chart.height' [data]='data2'></google-chart>
+        
+        </div>
+        <div class="col">
+            <table class="table col">
+                <thead>
+                    <tr>
+                        <th>Sno.</th>
+                        <th>Date</th>
+                        <th>Cases</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr *ngFor="let cs of selectedCountryData; index as i">
+                        <td> {{i+1}}</td>
+                        <td> {{cs.date | date}}</td>
+                        <td> {{cs.cases}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </div>
