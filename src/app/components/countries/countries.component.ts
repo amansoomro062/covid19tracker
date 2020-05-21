@@ -16,7 +16,8 @@ export class CountriesComponent implements OnInit {
   totalActive = 0;
   totalDeaths = 0;
   totalRecovered = 0;
-  data: GlobalDataSummary[]
+  data;
+  //data: GlobalDataSummary[]
   countries: string[] = []
   dataTable = [];
   dateWiseData;
@@ -76,7 +77,9 @@ export class CountriesComponent implements OnInit {
       this.dataService.getGlobalData().pipe(
         map(result => {
 
+          
           this.data = result;
+          
           this.data.forEach(cs=>{
             this.countries.push(cs.country)
           })

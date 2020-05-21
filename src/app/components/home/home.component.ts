@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
         value
       ])  
       
-      console.log(this.dataTable);
+      //console.log(this.dataTable);
       
     })
 
