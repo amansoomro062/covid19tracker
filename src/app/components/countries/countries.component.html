@@ -19,14 +19,17 @@
     [totalDeaths]='totalDeaths'
     [totalActive]='totalActive'></app-dashboard-card>
 
+<div class="row">
+    <div class="col">
 
+        <google-chart [type]="type" [options]='chart.options' style="width: 100%;"
+   [height] = 'chart.height' [data]='data2'></google-chart>
+    
+    </div>
+    
+</div>
+    
     <div class="row">
-        <div class="col">
-
-            <google-chart [type]="type" [options]='chart.options' style="width: 100%;"
-       [height] = 'chart.height' [data]='data2'></google-chart>
-        
-        </div>
         <div class="col">
             <table class="table col">
                 <thead>
@@ -48,4 +51,5 @@
         </div>
 
     </div>
+    
 </div>

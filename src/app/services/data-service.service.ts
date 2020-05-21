@@ -36,7 +36,7 @@ export class DataServiceService {
     this.date = now.getDate()
 
     this.globalDataUrl2 = `${this.baseURL}${this.getDate(this.month)}-${this.getDate(this.date)}-${this.year}${this.extension}`;
-    console.log(this.globalDataUrl2);
+    //console.log(this.globalDataUrl2);
     
     
    }
@@ -122,7 +122,7 @@ export class DataServiceService {
         if(error.status == 404) {
           this.date = this.date-1;
           this.globalDataUrl2 = `${this.baseURL}${this.getDate(this.month)}-${this.getDate(this.date)}-${this.year}${this.extension}`;
-          console.log(this.globalDataUrl2);
+          //console.log(this.globalDataUrl2);
           return this.getGlobalData()
           //return []
         }
