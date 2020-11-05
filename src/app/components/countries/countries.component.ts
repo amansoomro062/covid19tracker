@@ -21,11 +21,15 @@ export class CountriesComponent implements OnInit {
   data;
   //data: GlobalDataSummary[]
   countries: string[] = []
-  dataTable = [];
+  //dataTable = [];
   dateWiseData;
   selectedCountryData: DateWiseData[];
   loading = true;
 
+
+  type = 'LineChart';
+  width = 550;
+  
   chart = {
     LineChart: "LineChart",
     height: 500,
@@ -40,16 +44,13 @@ export class CountriesComponent implements OnInit {
  
 
  
-  type = 'LineChart';
-  width = 550;
-  height = 400;
   curDate=new Date();
   
   data2 = []
 
   updateChart() {
 
-    this.dataTable.push(["Date" , 'Cases'])
+    // this.data2.push(["Date" , 'Cases'])
     
     //console.log(this.selectedCountryData+"updateChart")
     this.data2 = []
@@ -58,7 +59,7 @@ export class CountriesComponent implements OnInit {
     })
 
     //console.log(this.dataTable);
-    //console.log(this.data2);
+    console.log(this.data2);
     
     
 
